@@ -3,8 +3,8 @@ from django import forms
 from accounts.models import Account
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
+
 class RegisterForm(UserCreationForm):
-    email =forms.EmailField(max_length=60, help_text='valid email kiriting!')
 
     class Meta:
         model = Account

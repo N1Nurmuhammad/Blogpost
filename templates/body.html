@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block  %}
+{% block content %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -16,7 +17,7 @@
 
     
 
-<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="{% static 'assets/dist/css/bootstrap.min.css' %} " rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -73,7 +74,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="carousel.css" rel="stylesheet">
+    <link href="{% static 'carousel.css' %} " rel="stylesheet">
   </head>
   <body>
     
@@ -216,7 +217,7 @@
 </main>
 
 
-    <script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %} "></script>
 
       
   </body>

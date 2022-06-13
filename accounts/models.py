@@ -39,10 +39,10 @@ class Account(AbstractBaseUser):
     sex = models.CharField(max_length=50,  blank=True, null=True)
     date_birthday = models.DateTimeField(blank=True, null=True)
 
-    is_admin = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)
-    is_superuser = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['phone_number']

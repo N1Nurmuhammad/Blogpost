@@ -1,6 +1,7 @@
 <h2>Sign Up</h2>
+{{user}}
 <form method="post">
 {% csrf_token %}
-{{ registration_form.as_p }}
+{{ form.as_p }}
 <button type="submit">Sign Up</button>
 </form>
