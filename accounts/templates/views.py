@@ -78,17 +78,13 @@ def edit_blog_view(request, pk):
             obj.save()
             context['success_message'] = "Updated"
             blog_post = obj
-            return redirect("blog:blogs")
     form = PagesForm(
         initial={
             'title':blog_post.title,
             'body': blog_post.body,
             'image': blog_post.image,
-            'author':blog_post.author,
         }
     )
 
     context['form'] = form
-    return render(request, 'update.html', context)
-# https://stackoverflow.com/questions/67719944/modelform-instance-vs-initial
-
+    return render(request, 'blog/edit_blog.html', context)

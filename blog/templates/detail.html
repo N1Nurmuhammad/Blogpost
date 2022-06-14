@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="content-wrapper">
+    <div class="inner-container container">
+        <div class="row">
+            <div class="section-header col-md-12">
+                <h2>******</h2>
+                <span></span>
+            </div> <!-- /.section-header -->
+        </div> <!-- /.row -->
+
+        <div class="row">
+            <div class=" col-md-12">
+                <img src="{{blog_post.imageURL}}" alt="Blog" height="360px" width="240px" >
+            </div> <!-- /.blog-image -->
+            <div class="blog-info col-md-12">
+                <div class="box-content">
+                    <h2 class="blog-title">{{blog_post.title}}</h2>
+                    <span class="blog-meta"></span>
+                    <p>{{blog_post.body}}</p>
+                        
+                            {% comment %} <h6 >{% if eng.free %}the book is empty{% else %}idle time:{{eng.b_date}}{% endif %}</h6>
+                        
+                            {% if eng.free %}<a href="{% url 'books:engbuy' %}">read</a>{% endif %} {% endcomment %}
+                </div>
+
+
+
+
+
+
+{% endblock content %}
