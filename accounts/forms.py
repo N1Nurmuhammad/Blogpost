@@ -1,4 +1,5 @@
 
+from dataclasses import fields
 from django import forms 
 from accounts.models import Account
 from django.contrib.auth.forms import UserCreationForm
@@ -24,3 +25,9 @@ class AccountAuthentificationForm(forms.ModelForm):
             password = self.cleaned_data['password']
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError("invalid inputs")
+
+
+class UpdateAccountForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = [ 'f_name', 'l_name', 'sex', 'date_birthday']

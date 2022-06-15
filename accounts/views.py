@@ -1,6 +1,7 @@
 
+from django.http import HttpResponse
 from accounts.forms import *
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import TemplateView
 
@@ -55,3 +56,39 @@ def account_authentication(request):
 def logout_view(request):
     logout(request)
     return redirect('blog:blogs')
+
+
+
+def edit_account_view(request, pk):
+    context = {}
+
+    user = request.user
+    # print(user)
+    if not user.is_authenticated:
+        return redirect('accounts:login')
+
+    blog_post = get_object_or_404(Account, pk=pk)
+    # print(blog_post.email)
+
+    if str(blog_post.email) != str(user):
+        return HttpResponse('You are not the author of that post.')
+
+    if request.POST:
+        form = UpdateAccountForm(request.POST or None, request.FILES or None, instance=blog_post)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.save()
+            context['success_message'] = "Updated"
+            blog_post = obj
+            return redirect("blog:blogs")
+    form = UpdateAccountForm(
+        initial={
+            'f_name':blog_post.f_name,
+            'l_name': blog_post.l_name,
+            'sex': blog_post.sex,
+            'date_birthday':blog_post.date_birthday,
+        }
+    )
+
+    context['form'] = form
+    return render(request, 'update_account.html', context)
