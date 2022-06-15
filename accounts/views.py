@@ -75,6 +75,7 @@ def edit_account_view(request, pk):
 
     if request.POST:
         form = UpdateAccountForm(request.POST or None, request.FILES or None, instance=blog_post)
+        print(form.errors)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.save()
