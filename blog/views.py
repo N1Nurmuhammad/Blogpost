@@ -32,6 +32,8 @@ def page_create(request):
                 return Account.DoesNotExist
             obj.author = author
             obj.save()
+            return redirect("blog:blogs")
+
         # messages.success(request, f'Ссылка добавлена')
     else:
         instance = PagesForm()
