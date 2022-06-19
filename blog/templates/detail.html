@@ -21,15 +21,51 @@
                     <h2 class="blog-title">{{blog_post.title}}</h2>
                     <span class="blog-meta"></span>
                     <p>{{blog_post.body}}</p>
+                    <p>{{blog_post.id}}</p>
+                    
+                    <p>{{blog_post.author}}</p>
+                    <p>{{blog_post.date_created}}</p>
+                    {% if blog_post.author == request.user %}
+                <a href="{% url 'blog:update' blog_post.id %} ">Edit</a>
+                <a href="">Delete</a>
+            {% endif %}
+                    
                         
                             {% comment %} <h6 >{% if eng.free %}the book is empty{% else %}idle time:{{eng.b_date}}{% endif %}</h6>
                         
                             {% if eng.free %}<a href="{% url 'books:engbuy' %}">read</a>{% endif %} {% endcomment %}
                 </div>
+    <hr class="featurette-divider">
 
+    <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form method="post" style="margin-top: 1.3em;">
+          {{ comment_form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+        </form>
+        {% endif %}
 
+    <hr class="featurette-divider">
 
+      </div>
 
+                {% for comment in comments %}
 
+                <div>
+                    <p>{{ comment.comment_text }}</p>
+                    <p>{{ comment.author }}</p>
+                    <p>{{ comment.date_created }}</p>
+                    <br>
+                </div>
+    <hr class="featurette-divider">
+
+            {% endfor %}
+    
 
 {% endblock content %}

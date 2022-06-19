@@ -54,15 +54,29 @@ def blog_view(request):
 
 def detail_blog_view(request, pk):
     context = {}
-    blog_post = get_object_or_404(PagesModel, pk=pk)
+    blog_post = get_object_or_404(PagesModel, pk = pk)
+    user = request.user
+    comments = CommentModel.objects.filter(blog_id = pk)
     context['blog_post'] = blog_post
-
+    context['comments'] = comments
+    if request.method == "POST":
+        comment_form = CommentsForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.blog = blog_post
+            new_comment.author = user
+            new_comment.save()
+            return redirect(f'{request.path}')
+    else:
+        comment_form = CommentsForm()
+    context['comment_form'] = comment_form
     return render(request, 'detail.html', context)
 
 
 
 def edit_blog_view(request, pk):
     context = {}
+    # print(request.path.split('/')[-1])
 
     user = request.user
     if not user.is_authenticated:
@@ -93,4 +107,3 @@ def edit_blog_view(request, pk):
     context['form'] = form
     return render(request, 'update.html', context)
 # https://stackoverflow.com/questions/67719944/modelform-instance-vs-initial
-
