@@ -170,8 +170,8 @@
 {% for bl in blog_list %}
     <hr class="featurette-divider">
 <a href= "{% url 'blog:detail' bl.id %}">
-    <div class="row featurette">
-      <div class="col-md-7">
+    
+     
         <h2 class="featurette-heading fw-normal lh-1">{{bl.title}}</h2></a>
         <p class="lead">{{bl.body}}</p>
         <img src="{{bl.imageURL}}" alt="">
@@ -179,8 +179,8 @@
         <p>{{bl.date_created}}</p>
 
       
-      </div>
-    </div>
+    
+  
 
     {% endfor %}
     <hr class="featurette-divider">

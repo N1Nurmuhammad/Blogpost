@@ -107,3 +107,11 @@ def edit_blog_view(request, pk):
     context['form'] = form
     return render(request, 'update.html', context)
 # https://stackoverflow.com/questions/67719944/modelform-instance-vs-initial
+
+
+# def delete_view(request, pk):
+#     context= []
+#     try:
+#         author = Account.objects.get(email=user.email)
+#     except:
+#         return Account.DoesNotExist
