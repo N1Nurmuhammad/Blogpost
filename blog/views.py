@@ -6,15 +6,10 @@ from .forms import *
 from accounts.models import Account
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 
 
 
-# class Vieww(TemplateView):
-#     template_name = 'body.html'
-
-
-# def topblogs(request):
-#     blogs = 
 
 def page_create(request):
     if request.method == "POST":
@@ -45,9 +40,14 @@ def page_create(request):
 
 def blog_view(request):
     blog = PagesModel.objects.all()
-    
+    paginator = Paginator(blog, 3)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+
     context = {
-        'blog_list':blog,
+        'page_obj':page_obj,
 
     }
     return render(request, 'body.html' , context )
