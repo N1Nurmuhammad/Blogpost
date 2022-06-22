@@ -30,7 +30,7 @@ INSTALLED_APPS = [
 
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
-
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'accounts.Account'

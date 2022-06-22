@@ -39,24 +39,47 @@ def page_create(request):
 
 
 def blog_view(request):
+    user = request.user
+    if not user.is_authenticated:
+     return redirect('accounts:login')
     blog = PagesModel.objects.all()
     paginator = Paginator(blog, 3)
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
+    
+    accounts = Account.objects.order_by('?')
+    if len(accounts)>=3:
+        acc1 = accounts[0]
+        acc2 = accounts[1]
+        acc3 = accounts[2]
 
 
-    context = {
-        'page_obj':page_obj,
 
-    }
+
+        context = {
+            'page_obj':page_obj,
+            'acc3':acc3,
+            'acc2':acc2,
+            'acc1':acc1
+
+        }
+    else:
+        context = {
+            'page_obj':page_obj,
+
+        }
+
     return render(request, 'body.html' , context )
 
 
 def detail_blog_view(request, pk):
+    user = request.user
+
+    if not user.is_authenticated:
+        return redirect('accounts:login')
     context = {}
     blog_post = get_object_or_404(PagesModel, pk = pk)
-    user = request.user
     comments = CommentModel.objects.filter(blog_id = pk)
     context['blog_post'] = blog_post
     context['comments'] = comments
