@@ -15,7 +15,7 @@ class PagesModel(models.Model):
     body = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null= True)
     image = models.ImageField(upload_to=upload_location , null = True, blank = True)
-    created_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
 
 
