@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load i18n %}
+
 
 {% block content %}
 
@@ -27,7 +29,7 @@
                     <p>{{blog_post.date_created}}</p>
                     {% if blog_post.author == request.user %}
                 <a href="{% url 'blog:update' blog_post.id %} ">Edit</a>
-                <a href="">Delete</a>
+                <a href="{% url 'blog:delete' blog_post.id %} ">Delete</a>
             {% endif %}
                     
                         

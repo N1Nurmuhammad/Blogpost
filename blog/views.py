@@ -110,9 +110,29 @@ def edit_blog_view(request, pk):
 # https://stackoverflow.com/questions/67719944/modelform-instance-vs-initial
 
 
-# def delete_view(request, pk):
-#     context= []
-#     try:
-#         author = Account.objects.get(email=user.email)
-#     except:
-#         return Account.DoesNotExist
+
+
+def delete_blog_view(request, pk):
+    # dictionary for initial data with
+    # field names as keys
+    context ={}
+
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('accounts:login')
+
+    obj = get_object_or_404(PagesModel, pk = pk)
+
+    if obj.author != user:
+        return HttpResponse('Aftorlik huquqi yo`q')
+
+    
+    if request.POST:
+
+        obj.delete()
+  
+
+        return redirect("blog:blogs")
+    context['form']=obj
+ 
+    return render(request, "delete.html", context)
