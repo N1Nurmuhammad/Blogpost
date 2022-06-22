@@ -17,7 +17,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 #     blogs = 
 
 def page_create(request):
+    print('aaa')
     if request.method == "POST":
+        print('aa1111111a')
+
         instance = PagesForm(request.POST or None, request.FILES or None)
         user = request.user
         if not user.is_authenticated:
@@ -36,6 +39,7 @@ def page_create(request):
 
         # messages.success(request, f'Ссылка добавлена')
     else:
+        print('else')
         instance = PagesForm()
     
     return render(request, 'create.html', {'form': instance})

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -121,9 +122,32 @@
         <li class="nav-item"><a href="{% url 'accounts:signup' %}" class="nav-link link-dark px-2">Sign up</a></li>
         {% endif %}
 
+
+                  </ul>
+              </div>
+          </li>
+      </form>
       </ul>
     </div>
   </nav>
+  
+  <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+      <input name="next" type="hidden" value="{{ redirect_to }}">
+      <select name="language" onchange="this.form.submit()" class="lang-select" style="text-transform: capitalize">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_available_languages as LANGUAGES %}
+          {% get_language_info_list for LANGUAGES as languages %}
+
+          {% for language in languages %}
+              <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %} style="text-transform: capitalize">
+                  {{ language.name_local }}
+              </option>
+          {% endfor %}
+
+      </select>
+  </form>
+
+
   <header class="py-3 mb-4 border-bottom">
     <div class="container d-flex flex-wrap justify-content-center">
       <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">

@@ -5,4 +5,4 @@ from blog.models import PagesModel
 
 @register(PagesModel)
 class PagesModelTranslation(TranslationOptions):
-    fields = ('title', 'body')
+    fields = ('title', 'body', 'image')
