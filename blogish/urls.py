@@ -10,6 +10,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('', include('blog.urls', 'main_app')),
     path('i18n/', include('django.conf.urls.i18n')),
+    # rest
+    path('api/', include('blog.api.urls'))
 
 
 ]
