@@ -24,8 +24,24 @@ def create_blog_api(request):
 
 
 @api_view(['GET'])
-def blogs_api_view(request, pk):
+def blog_detail_api_view(request, pk):
     blogs = get_object_or_404(PagesModel, pk = pk)
     serializer = BlogsSerializer(blogs)
   
     return Response(serializer.data)
+
+
+@api_view(['DELETE','GET'])
+def blog_delete_api_view(request, pk):
+    blogs = get_object_or_404(PagesModel, pk = pk)
+    serializer = BlogsSerializer(blogs)
+    blogs.delete()
+    return Response(serializer.data)
+
+@api_view(['POST','GET'])
+def comments_blog_view(request, pk):
+    comments = CommentModel.objects.filter(blog_id=pk)
+    serializer = CommentsSerilizer(comments, many = True)
+    return Response(serializer.data)
+
+

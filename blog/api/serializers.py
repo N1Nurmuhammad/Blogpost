@@ -10,3 +10,8 @@ class BlogsSerializer(serializers.ModelSerializer):
         # fields = ['title', 'body', 'image', 'author', ]
         fields = '__all__'
 
+class CommentsSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model = CommentModel
+        fields = '__all__'
+        

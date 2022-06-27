@@ -11,9 +11,8 @@ urlpatterns = [
     path('', include('blog.urls', 'main_app')),
     path('i18n/', include('django.conf.urls.i18n')),
     # rest
-    path('api/', include('blog.api.urls'))
-
-
+    path('api/blog/', include('blog.api.urls')),
+    path('api/accounts/', include('accounts.api.urls'))
 ]
 
 urlpatterns += i18n_patterns(
