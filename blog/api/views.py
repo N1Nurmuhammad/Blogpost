@@ -52,11 +52,6 @@ def blog_delete_api_view(request, pk):
     blogs.delete()
     return Response(serializer.data)
 
-@api_view(['POST','GET'])
-def comments_blog_view(request, pk):
-    comments = CommentModel.objects.filter(blog_id=pk)
-    serializer = CommentsSerilizer(comments, many = True)
-    return Response(serializer.data)
 
 @api_view(['PUT', "GET" ])
 # @permission_classes((IsAuthenticated,))
@@ -93,3 +88,23 @@ class ApiBlogListView(ListAPIView):
     # pagination_classes = PageNumberPagination
     # filter_backends = (SearchFilter, OrderingFilter)
     # search_fields = ('title', 'body', 'author__username')
+
+
+@api_view(['POST'])
+def create_comment(request, pk):
+    user = request.user
+    blog = get_object_or_404(PagesModel, pk = pk)
+
+    serializer = CommentsSerilizer(data=request.data)
+    if serializer.is_valid():
+        serializer.author = user
+        serializer.blog = blog
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST','GET'])
+def comments_blog_view(request, pk):
+    comments = CommentModel.objects.filter(blog_id=pk)
+    serializer = CommentsSerilizer(comments, many = True)
+    return Response(serializer.data)

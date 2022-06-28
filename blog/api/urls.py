@@ -8,6 +8,7 @@ urlpatterns = [
     path('comments/<int:pk>', comments_blog_view, name='comments'),
     path('delete/<int:pk>', blog_delete_api_view, name='delete'),
     path('update/<int:pk>', blog_update_api_view, name='update'),
+    path('creatcom/<int:pk>', create_comment, name="creatcom")
 
 
 ]
