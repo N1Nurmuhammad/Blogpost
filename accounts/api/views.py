@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['POST',])
+@permission_classes((IsAuthenticated, ))
 def registration_view(request):
 
     if request.method == 'POST':
@@ -36,3 +37,21 @@ def account_view(request):
     if request.method == 'GET':
         serializer = AccountViewSerializer(account)
         return Response(serializer.data)
+
+
+@api_view(['PUT',])
+@permission_classes((IsAuthenticated,))
+def update_account_view(request):
+    try:
+        account = request.user
+    except Account.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = AccountViewSerializer(account, data=request.data)
+        data = {}
+        if serializer.is_valid():
+            serializer.save()
+            data['response'] = "Updated"
+            return Response(data=data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
