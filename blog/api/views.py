@@ -89,16 +89,17 @@ class ApiBlogListView(ListAPIView):
     # filter_backends = (SearchFilter, OrderingFilter)
     # search_fields = ('title', 'body', 'author__username')
 
-
 @api_view(['POST'])
 def create_comment(request, pk):
     user = request.user
     blog = get_object_or_404(PagesModel, pk = pk)
+    comment = CommentModel(author=user)
 
-    serializer = CommentsSerilizer(data=request.data)
+
+    serializer = CommentsSerilizer(comment, data=request.data)
     if serializer.is_valid():
-        serializer.author = user
-        serializer.blog = blog
+        # serializer.author = user
+        # serializer.blog = blog
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
