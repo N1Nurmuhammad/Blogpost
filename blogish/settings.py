@@ -18,8 +18,11 @@ ALLOWED_HOSTS = ['*']
 
 
 # Application definition
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
+    
     'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,7 +35,6 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'whitenoise.runserver_nostatic',
 ]
 
 
@@ -159,7 +161,6 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
