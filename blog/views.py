@@ -54,9 +54,6 @@ def blog_view(request):
         acc2 = accounts[1]
         acc3 = accounts[2]
 
-
-
-
         context = {
             'page_obj':page_obj,
             'acc3':acc3,
