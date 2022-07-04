@@ -1,1 +1,1 @@
-web gunicorn corebook.wsgi:application --log-file -
+web gunicorn blogish.wsgi:application --log-file -
